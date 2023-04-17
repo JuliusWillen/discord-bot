@@ -1,0 +1,2 @@
+hello=["Hello!","Hi!","Hey!","Yo!","Sup!","Greetings!","Good day!","Good morning!","Good afternoon!","Good evening!","Good night!","Howdy!","Hola!","Bonjour!","Shalom!","Namaste!","Ciao!","Guten tag!","Guten morgen!"]
+bye=["Bye!","Goodbye!","See you!","See ya!","See you later!","See ya later!","Adios!","Ciao!","Au revoir!","Auf wiedersehen!","Auf wiederhören!","Auf wiedersehen!","Auf wiederhören!","Farewell!"]
