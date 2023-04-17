@@ -1,3 +1,3 @@
-hello=["hello","hi","hey","yo","sup","greetings","good day","good morning","good afternoon","good evening","good night","howdy","hola","bonjour","shalom","namaste","ciao","guten tag","guten morgen"]
-bye=["bye","goodbye","see you","see ya","see you later","see ya later","adios","ciao","au revoir","auf wiedersehen","auf wiederhören","auf wiedersehen","auf wiederhören","farewell"]
-haha=["haha","lol","lmao","rofl","lmfao", "xd", "kek", "top kek"]
+hello = ["hej", "tja", "hallå", "yo", "hejsan", "god dag", "god morgon", "god eftermiddag", "god kväll", "god natt", "howdy", "hola", "bonjour", "shalom", "namaste", "ciao", "guten tag", "guten morgen"]
+bye = ["adjö", "hejdå", "vi ses", "ses", "vi hörs", "adios", "ciao", "au revoir", "auf wiedersehen", "auf wiederhören", "auf wiedersehen", "auf wiederhören", "farväl"]
+haha = ["haha", "lol", "lmao", "rofl", "lmfao", "xd", "kek", "top kek"]
