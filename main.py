@@ -15,7 +15,7 @@ responded_messages = []
 
 @bot.event
 async def on_ready():
-    print('Bot is ready.')
+    print('Bot is ready...')
 
 @bot.event
 async def on_message(message):
