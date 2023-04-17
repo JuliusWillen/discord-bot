@@ -1,10 +1,10 @@
 import discord
 from discord.ext import commands
-import discord_token as token
 import triggers
 import responses
 import random
 import reactions
+import os
 
 intents = discord.Intents.default()
 intents.members = True
@@ -45,4 +45,4 @@ def message_contains(message, triggers):
         if trigger in message:
             return True
 
-bot.run(token.discord_token)
+bot.run(os.getenv("DISCORD_TOKEN"))
