@@ -5,6 +5,7 @@ import responses
 import random
 import reactions
 import os
+import datetime
 
 intents = discord.Intents.default()
 intents.members = True
@@ -19,6 +20,8 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
+    if not should_respond(message):
+        return
     # hello
     if message_contains(message.content.lower(), triggers.hello) and message.id not in responded_messages:
         await reply(message, random.choice(responses.hello))
@@ -44,5 +47,19 @@ def message_contains(message, triggers):
     for trigger in triggers:
         if trigger in message:
             return True
+        
+def should_respond(message):
+    # check if bot should respond to message
+    if message.author == bot.user:
+        return False
+    elif message.author.bot:
+        return False
+    else:
+        timestamp = message.created_at        
+        now = datetime.datetime.now(datetime.timezone.utc)
+        time_diff = (now - timestamp).total_seconds()
+        if time_diff > 2:
+            return False
+        return True
 
 bot.run(os.getenv("DISCORD_TOKEN"))
