@@ -34,6 +34,9 @@ async def on_message(message):
     # cool
     elif message_contains(message.content.lower(), triggers.cool) and message.id not in responded_messages:
         await react(message, random.choice(reactions.cool))
+    # sausage
+    elif message_contains(message.content.lower(), triggers.sausage) and message.id not in responded_messages:
+        await react(message, random.choice(reactions.sausage))
 
 async def reply(message, response):
     print(f"Received message with id {message.id}. Message content: {message.content}. Replying with {response}")
