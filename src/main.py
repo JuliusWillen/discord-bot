@@ -9,6 +9,7 @@ import message_helpers as mh
 from ai_response import AiResponse
 
 token = os.getenv("DISCORD_TOKEN")
+openai_key = os.getenv("OPENAI_KEY")
 
 intents = discord.Intents.default()
 intents.members = True
@@ -17,7 +18,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 responded_messages = []
 
-AI = AiResponse()
+AI = AiResponse(openai_key)
 
 
 @bot.event
@@ -51,7 +52,7 @@ async def on_message(message):
         await react(message, random.choice(reactions.turtle))
     # if gpt is the first two letters of the message
     elif message.content.lower()[:2] == "gpt" and message.id not in responded_messages:
-        await reply(message, AI.get_response(message))
+        await reply(message, AI.get_response(message.content.lower()[3:]))
 
 
 async def reply(message, response):
