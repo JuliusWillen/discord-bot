@@ -30,7 +30,7 @@ async def on_message(message):
 
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
-    if message.content.lower()[:6] == "Julle," and message.id not in responded_messages:
+    if message.content.lower()[:6] == "julle," and message.id not in responded_messages:
         print(
             "Received message with id {message.id}. Message content: {message.content}. Replying with AI response")
         response = AI.get_response(message.content.lower()[8:])
