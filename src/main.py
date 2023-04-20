@@ -4,9 +4,11 @@ import os
 import message_helpers as mh
 from ai_response import AiResponse
 import json
+import random
 
 token = os.getenv("DISCORD_TOKEN")
 openai_key = os.getenv("OPENAI_KEY")
+command = os.getenv("COMMAND")
 
 intents = discord.Intents.default()
 intents.members = True
@@ -25,19 +27,25 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if not mh.should_respond(message, bot.user):
+    if not mh.should_respond(message, bot.user, command):
         return
+
+    message_command = message.content.lower()[:len(command)]
+    message_content = message.content.lower()[len(command)+1:]
 
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
-    if message.content.lower()[:6] == "julle," and message.id not in responded_messages:
+    if message_command == command and message.id not in responded_messages:
         print(
             "Received message with id {message.id}. Message content: {message.content}. Replying with AI response")
-        response = AI.get_response(message.content.lower()[8:])
-        # turn response into a python dict
-        response = json.loads(response)
-        await reply(message, response["Reply"])
-        await react(message, response["Reaction"])
+        try:
+            response = AI.get_response(message_content)
+            response = json.loads(response)
+            await reply(message, response["Reply"])
+            await react(message, response["Reaction"])
+        except:
+            response = AI.get_normal_response(message_content)
+            await reply(response, response)
 
 
 async def reply(message, response):
@@ -48,6 +56,9 @@ async def reply(message, response):
 
 
 async def react(message, reaction):
+    if random.randint(0, 1) == 0:
+        return
+
     print(
         f"Received message with id {message.id}. Message content: {message.content}. Reacting with {reaction}")
     await message.add_reaction(reaction)

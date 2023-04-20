@@ -8,7 +8,9 @@ def message_contains(message, triggers):
             return True
 
 
-def should_respond(message, user):
+def should_respond(message, user, command):
+    if len(message) < len(command):
+        return False
     if message.author == user:
         return False
     elif message.author.bot:
