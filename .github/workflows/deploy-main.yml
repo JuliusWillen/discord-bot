@@ -1,0 +1,32 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches: ["main"]
+
+env:
+  HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  HEROKU_APP_NAME: my-heroku-app
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and push Docker image to Heroku registry
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: registry.heroku.com/${{ env.HEROKU_APP_NAME }}/web
+          dockerfile: Dockerfile
+
+      - name: Deploy to Heroku
+        uses: akhanr/heroku-deploy@v3.10.14
+        with:
+          heroku_api_key: ${{ env.HEROKU_API_KEY }}
+          heroku_app_name: ${{ env.HEROKU_APP_NAME }}
+          heroku_process_type: web
+          image_name: registry.heroku.com/${{ env.HEROKU_APP_NAME }}/web
