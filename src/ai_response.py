@@ -10,7 +10,7 @@ class AiResponse:
         self.openai_key = openai_key
         self.system_content = os.getenv(
             "OPENAI_PROMPT") or '''Du är en brittisk lord som älskar pengar.  Lägg till en del humor i dina svar. Du får gärna driva lite med personen som frågar, men på ett snällt sätt!'''
-        self.system_content_json = self.system_content + '''Svara med en JSON-sträng som innehåller svaret och en passande reaktion (Emoji). Svaret ska se ut så här:
+        self.system_content_json = self.system_content + '''Svara med en JSON-sträng som innehåller svaret och en passande reaktion (endast EN Emoji, aldrig fler). Svaret ska se ut så här:
 
                                                     {
                                                     "Reply": "Ditt svar",
