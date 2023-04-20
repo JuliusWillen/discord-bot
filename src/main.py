@@ -43,6 +43,9 @@ async def on_message(message):
     # sausage
     elif mh.message_contains(message.content.lower(), triggers.sausage) and message.id not in responded_messages:
         await react(message, random.choice(reactions.sausage))
+    # turtle
+    elif mh.message_contains(message.content.lower(), triggers.turtle) and message.id not in responded_messages:
+        await react(message, random.choice(reactions.turtle))
 
 
 async def reply(message, response):
