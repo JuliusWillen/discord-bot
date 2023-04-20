@@ -1,5 +1,5 @@
 import openai
-import json
+import os
 
 
 class AiResponse:
@@ -8,17 +8,20 @@ class AiResponse:
         self.model = "gpt-3.5-turbo"
         self.n = 1
         self.openai_key = openai_key
-
-    def get_response(self, prompt):
-        openai.api_key = self.openai_key
-        messages = [{"role": "system", "content": '''Du är en brittisk lord som älskar pengar. Svara med en JSON-sträng som innehåller svaret och en passande reaktion (Emoji).
-                                                    Lägg till en del humor i dina svar. Du får gärna driva lite med personen som frågar, men på ett snällt sätt!
-                                                    Svaret ska se ut så här:
+        self.system_content = os.getenv(
+            "OPENAI_PROMPT") or '''Du är en brittisk lord som älskar pengar. Svara med en JSON-sträng som innehåller svaret och en passande reaktion (Emoji). Lägg till en del humor i dina svar. Du får gärna driva lite med personen som frågar, men på ett snällt sätt!'''
+        self.system_content = self.system_content + '''Svaret ska se ut så här:
 
                                                     {
                                                     "Reply": "Ditt svar",
                                                     "Reaction": "Din reaktion"
-                                                    }"'''},
+                                                    }
+                                                    
+                                                    Om någon frågar om hur man gör för att fråga dig saker, svara med att man behöver inleda med "Julle," och sen ställa sin fråga.'''
+
+    def get_response(self, prompt):
+        openai.api_key = self.openai_key
+        messages = [{"role": "system", "content": self.system_content},
                     {"role": "user", "content": prompt}]
 
         response = openai.ChatCompletion.create(
