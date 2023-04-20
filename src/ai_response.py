@@ -10,6 +10,7 @@ class AiResponse:
         self.openai_key = openai_key
 
     def get_response(self, prompt):
+        print("Getting response from OpenAI...")
         openai.api_key = self.openai_key
         response = openai.Completion.create(
             engine=self.model,
@@ -19,5 +20,6 @@ class AiResponse:
             stop=None,
             temperature=0.5,
         )
-
+        print(
+            f"Got response from OpenAI with text: {response.choices[0].text}")
         return response.choices[0].text.strip()

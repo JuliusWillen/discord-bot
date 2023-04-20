@@ -52,6 +52,8 @@ async def on_message(message):
         await react(message, random.choice(reactions.turtle))
     # if gpt is the first two letters of the message
     elif message.content.lower()[:2] == "gpt" and message.id not in responded_messages:
+        print(
+            "Received message with id {message.id}. Message content: {message.content}. Replying with AI response")
         await reply(message, AI.get_response(message.content.lower()[3:]))
 
 
