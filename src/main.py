@@ -6,6 +6,7 @@ import random
 import reactions
 import os
 import message_helpers as mh
+from ai_response import AiResponse
 
 token = os.getenv("DISCORD_TOKEN")
 
@@ -15,6 +16,8 @@ intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 responded_messages = []
+
+AI = AiResponse()
 
 
 @bot.event
@@ -46,6 +49,9 @@ async def on_message(message):
     # turtle
     elif mh.message_contains(message.content.lower(), triggers.turtle) and message.id not in responded_messages:
         await react(message, random.choice(reactions.turtle))
+    # if gpt is the first two letters of the message
+    elif message.content.lower()[:2] == "gpt" and message.id not in responded_messages:
+        await reply(message, AI.get_response(message))
 
 
 async def reply(message, response):
