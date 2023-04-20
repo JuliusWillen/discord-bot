@@ -30,6 +30,7 @@ async def on_ready():
 async def on_message(message):
     if not mh.should_respond(message, bot.user):
         return
+    print(message.content.lower())
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
     # hello!
