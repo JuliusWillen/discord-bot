@@ -9,7 +9,7 @@ def message_contains(message, triggers):
 
 
 def should_respond(message, user, command):
-    if len(message) < len(command):
+    if len(message.content) < len(command):
         return False
     if message.author == user:
         return False
