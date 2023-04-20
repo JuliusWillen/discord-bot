@@ -7,6 +7,8 @@ import reactions
 import os
 import message_helpers as mh
 
+token = os.getenv("DISCORD_TOKEN")
+
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
@@ -56,4 +58,4 @@ async def react(message, reaction):
     await message.add_reaction(reaction)
     responded_messages.append(message.id)
 
-bot.run(os.getenv("DISCORD_TOKEN"))
+bot.run(token)
