@@ -30,7 +30,6 @@ async def on_ready():
 async def on_message(message):
     if not mh.should_respond(message, bot.user):
         return
-    print(message.content.lower())
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
     # hello!
@@ -52,10 +51,10 @@ async def on_message(message):
     elif mh.message_contains(message.content.lower(), triggers.turtle) and message.id not in responded_messages:
         await react(message, random.choice(reactions.turtle))
     # if gpt is the first two letters of the message
-    elif message.content.lower()[:2] == "gpt" and message.id not in responded_messages:
+    elif message.content.lower()[:3] == "gpt" and message.id not in responded_messages:
         print(
             "Received message with id {message.id}. Message content: {message.content}. Replying with AI response")
-        await reply(message, AI.get_response(message.content.lower()[3:]))
+        await reply(message, AI.get_response(message.content.lower()[4:]))
 
 
 async def reply(message, response):
