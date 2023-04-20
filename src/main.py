@@ -28,7 +28,7 @@ async def on_message(message):
         return
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
-    # hello
+    # hello!
     if mh.message_contains(message.content.lower(), triggers.hello) and message.id not in responded_messages:
         await reply(message, random.choice(responses.hello))
     # bye
