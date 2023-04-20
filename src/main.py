@@ -36,8 +36,6 @@ async def on_message(message):
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
     if message_command == command and message.id not in responded_messages:
-        print(
-            "Received message with id {message.id}. Message content: {message.content}. Replying with AI response")
         try:
             response = AI.get_JSON_response(message_content)
             response = json.loads(response)

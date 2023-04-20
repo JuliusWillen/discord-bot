@@ -19,6 +19,7 @@ class AiResponse:
         print(self.system_content_json)
 
     def get_JSON_response(self, prompt):
+        print("generating JSON response")
         openai.api_key = self.openai_key
         messages = [{"role": "system", "content": self.system_content_json},
                     {"role": "user", "content": prompt}]
@@ -34,6 +35,7 @@ class AiResponse:
         return response.choices[0].message.content
 
     def get_normal_response(self, prompt):
+        print("generating normal response")
         openai.api_key = self.openai_key
         messages = [{"role": "system", "content": self.system_content},
                     {"role": "user", "content": prompt}]
