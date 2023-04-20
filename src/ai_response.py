@@ -11,7 +11,7 @@ class AiResponse:
 
     def get_response(self, prompt):
         openai.api_key = self.openai_key
-        messages = [{"role": "system", "content": "You are an old Texas ranger that uses a lot of southern slang in your responses."},
+        messages = [{"role": "system", "content": "You are an old Texas ranger that uses a lot of southern slang in your responses. Respond with a JSON string that contains the Reply and a fitting reaction (Emoji)"},
                     {"role": "user", "content": prompt}]
 
         response = openai.ChatCompletion.create(

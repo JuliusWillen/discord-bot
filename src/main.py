@@ -1,12 +1,9 @@
 import discord
 from discord.ext import commands
-import triggers
-import responses
-import random
-import reactions
 import os
 import message_helpers as mh
 from ai_response import AiResponse
+import json
 
 token = os.getenv("DISCORD_TOKEN")
 openai_key = os.getenv("OPENAI_KEY")
@@ -30,14 +27,17 @@ async def on_ready():
 async def on_message(message):
     if not mh.should_respond(message, bot.user):
         return
-    command = message.content.lower()
 
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
-    if message.content.lower()[:3] == "gpt" and message.id not in responded_messages:
+    if message.content.lower()[:6] == "Julle," and message.id not in responded_messages:
         print(
             "Received message with id {message.id}. Message content: {message.content}. Replying with AI response")
-        await reply(message, AI.get_response(message.content.lower()[4:]))
+        response = AI.get_response(message.content.lower()[8:])
+        # turn response into a python dict
+        response = json.loads(response)
+        await reply(message, response["Reply"])
+        await react(message, response["Reaction"])
 
 
 async def reply(message, response):
