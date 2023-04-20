@@ -39,7 +39,7 @@ async def on_message(message):
         print(
             "Received message with id {message.id}. Message content: {message.content}. Replying with AI response")
         try:
-            response = AI.get_response(message_content)
+            response = AI.get_JSON_response(message_content)
             response = json.loads(response)
             await reply(message, response["Reply"])
             await react(message, response["Reaction"])
