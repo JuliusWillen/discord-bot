@@ -29,21 +29,21 @@ async def on_ready():
 async def on_message(message):
     if not mh.should_respond(message, bot.user, command):
         return
+    try:
+        message_command = message.content.lower()[:len(command)]
+        message_content = message.content.lower()[len(command)+1:]
 
-    message_command = message.content.lower()[:len(command)]
-    message_content = message.content.lower()[len(command)+1:]
+        if message.content.lower() == "invite":
+            await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
+        if message_command == command and message.id not in responded_messages:
 
-    if message.content.lower() == "invite":
-        await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
-    if message_command == command and message.id not in responded_messages:
-        try:
             response = AI.get_JSON_response(message_content)
             response = json.loads(response)
             await reply(message, response["Reply"])
             await react(message, response["Reaction"])
-        except:
-            response = AI.get_normal_response(message_content)
-            await reply(response, response)
+    except:
+        response = AI.get_normal_response("Generera ett felmeddelande")
+        await reply(message, response)
 
 
 async def reply(message, response):
