@@ -46,4 +46,4 @@ class AiResponse:
             stop=None,
             temperature=0.9,
         )
-        return response.choices[0].text
+        return response.choices[0].message.content
