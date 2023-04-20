@@ -42,8 +42,7 @@ async def on_message(message):
             await reply(message, response["Reply"])
             await react(message, response["Reaction"])
     except:
-        response = AI.get_normal_response(
-            "Generera ett felmeddelande som handlar om att en Discord-bot har slutat fungera, men att någon jobbar på att försöka få det att fungera så fort som möjligt!")
+        response = AI.get_normal_response(message_content)
         await reply(message, response)
 
 
