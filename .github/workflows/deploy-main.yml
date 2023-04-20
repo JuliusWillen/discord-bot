@@ -26,7 +26,7 @@ jobs:
           context: .
           push: true
           tags: registry.heroku.com/${{ env.HEROKU_APP_NAME }}/web
-      - name: Deploy to Heroku
+      - name: Deploy to Heroku boi
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
