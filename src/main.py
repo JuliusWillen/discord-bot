@@ -8,7 +8,7 @@ import random
 
 token = os.getenv("DISCORD_TOKEN")
 openai_key = os.getenv("OPENAI_KEY")
-command = os.getenv("COMMAND")
+discord_trigger = os.getenv("DISCORD_TRIGGER")
 
 intents = discord.Intents.default()
 intents.members = True
@@ -27,15 +27,15 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if not mh.should_respond(message, bot.user, command):
+    if not mh.should_respond(message, bot.user, discord_trigger):
         return
     if message.content.lower() == "invite":
         await message.channel.send("https://discord.com/api/oauth2/authorize?client_id=503592450061762565&permissions=39582455643712&scope=bot")
     try:
-        message_command = message.content.lower()[:len(command)]
-        message_content = message.content.lower()[len(command)+1:]
+        message_command = message.content.lower()[:len(discord_trigger)]
+        message_content = message.content.lower()[len(discord_trigger)+1:]
 
-        if message_command == command and message.id not in responded_messages:
+        if message_command == discord_trigger and message.id not in responded_messages:
 
             response = AI.get_JSON_response(message_content)
             response = json.loads(response)

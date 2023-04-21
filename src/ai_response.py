@@ -4,9 +4,10 @@ import os
 
 class AiResponse:
     def __init__(self, openai_key=None):
-        self.max_tokens = 100
-        self.model = "gpt-3.5-turbo"
-        self.n = 1
+        self.max_tokens = os.getenv("OPENAI_MAX_TOKENS") or 100
+        self.model = os.getenv("OPENAI_MODEL") or "gpt-3.5-turbo"
+        self.n =  os.getenv("OPENAI_N") or 1
+        self.temperature = os.getenv("OPENAI_TEMPERATURE") or 0.9
         self.openai_key = openai_key
         self.system_content = os.getenv(
             "OPENAI_PROMPT") or '''Du är en brittisk lord som älskar pengar.  Lägg till en del humor i dina svar. Du får gärna driva lite med personen som frågar, men på ett snällt sätt!'''
@@ -16,7 +17,6 @@ class AiResponse:
                                                     "Reply": "Ditt svar",
                                                     "Reaction": "Din reaktion"
                                                     }'''
-        print(self.system_content_json)
 
     def get_JSON_response(self, prompt):
         print("generating JSON response")
@@ -30,7 +30,7 @@ class AiResponse:
             max_tokens=self.max_tokens,
             n=self.n,
             stop=None,
-            temperature=0.9,
+            temperature=self.temperature,
         )
         return response.choices[0].message.content
 
@@ -46,6 +46,6 @@ class AiResponse:
             max_tokens=self.max_tokens,
             n=self.n,
             stop=None,
-            temperature=0.9,
+            temperature=self.temperature,
         )
         return response.choices[0].message.content
